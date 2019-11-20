@@ -135,8 +135,13 @@ class Varien_Image_Adapter_Imagemagic extends Varien_Image_Adapter_Abstract
             }
         }
 
+        if (defined("Imagick::INTERPOLATE_BICUBIC") === true) {
+            $filter = Imagick::INTERPOLATE_BICUBIC;
+        } else {
+            $filter = Imagick::FILTER_LANCZOS;
+        }
         // Resize
-        $imagick->setimageinterpolatemethod(imagick::INTERPOLATE_BICUBIC);
+        $imagick->setimageinterpolatemethod($filter);
         $imagick->scaleimage($frameWidth, $frameHeight, true);
 
         // Fill desired canvas
